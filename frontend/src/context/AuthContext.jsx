@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem("auth");
   };
-
+    //
   return (
     <AuthContext.Provider
       value={{ user, token, login, register, logout, loading }}
