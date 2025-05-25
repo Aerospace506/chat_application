@@ -10,3 +10,4 @@ dnspython
 pymongo
 motor
 bcrypt==3.2.0
+uvicorn[standard]
