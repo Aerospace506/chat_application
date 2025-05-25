@@ -9,6 +9,8 @@ from pydantic import BaseModel
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
+
+
 @router.post("/register")
 async def register(user: UserCreate):
     try:
