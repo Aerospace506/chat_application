@@ -52,10 +52,21 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem("auth");
   };
-    //
+  
+  const resetPassword = async (username, pin, newPassword) => {
+    const res = await fetch("http://localhost:8000/api/auth/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, pin, new_password: newPassword }),
+    });
+    if (!res.ok)
+      throw new Error((await res.json()).detail || "Password reset failed");
+    return await res.json();
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, token, login, register, logout, loading }}
+      value={{ user, token, login, register, logout, resetPassword, loading }}
     >
       {children}
     </AuthContext.Provider>
