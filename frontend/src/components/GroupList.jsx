@@ -14,10 +14,12 @@ const GroupList = ({ onSelectGroup, selectedGroup }) => {
   const [showModal, setShowModal] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
 
+  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+
   // Fetch all users for member selection in modal
   useEffect(() => {
     if (!token) return;
-    authFetch("http://localhost:8000/api/auth/users", token)
+    authFetch(`${backendURL}/api/auth/users`, token)
       .then((res) => (res.ok ? res.json() : []))
       .then((data) => setAllUsers(Array.isArray(data) ? data : []));
   }, [token]);
@@ -46,14 +48,14 @@ const GroupList = ({ onSelectGroup, selectedGroup }) => {
         addGroup(data.group);
         // Force a refresh of the group list for all users
         if (token) {
-          authFetch(`http://localhost:8000/api/groups/me`, token)
+          authFetch(`${backendURL}/api/groups/me`, token)
             .then((res) => (res.ok ? res.json() : []))
             .then((data) => addAllGroups(Array.isArray(data) ? data : []));
         }
       } else if (data.type === "group_added" && data.group) {
         // Fetch latest groups from backend to ensure up-to-date membership
         if (token) {
-          authFetch(`http://localhost:8000/api/groups/me`, token)
+          authFetch(`${backendURL}/api/groups/me`, token)
             .then((res) => (res.ok ? res.json() : []))
             .then((data) => addAllGroups(Array.isArray(data) ? data : []));
         }

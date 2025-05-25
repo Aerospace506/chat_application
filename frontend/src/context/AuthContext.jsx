@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (username, password) => {
-    const res = await fetch("http://localhost:8000/api/auth/login", {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (username, password, pin) => {
-    const res = await fetch("http://localhost:8000/api/auth/register", {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password, pin }),

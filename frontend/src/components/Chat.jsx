@@ -11,6 +11,8 @@ const Chat = ({ selectedUser }) => {
   const [forceRerender, setForceRerender] = useState(0);
   const messagesEndRef = useRef(null);
 
+  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -29,8 +31,10 @@ const Chat = ({ selectedUser }) => {
     }
 
     // Load previous messages
+    
+
     authFetch(
-      `http://localhost:8000/api/messages/${user.username}/${selectedUser.name}`,
+      `${backendURL}/api/messages/${user.username}/${selectedUser.name}`,
       token
     )
       .then((res) => (res.ok ? res.json() : []))
@@ -69,7 +73,7 @@ const Chat = ({ selectedUser }) => {
           });
           if (!found && user && selectedUser && token) {
             authFetch(
-              `http://localhost:8000/api/messages/${user.username}/${selectedUser.name}`,
+              `{backendURL}/api/messages/${user.username}/${selectedUser.name}`,
               token
             )
               .then((res) => (res.ok ? res.json() : []))

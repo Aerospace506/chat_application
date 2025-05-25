@@ -19,8 +19,10 @@ export const WebSocketProvider = ({ children }) => {
   useEffect(() => {
     if (!user || !user.username || !token) return;
     const normUsername = user.username.trim().toLowerCase();
+    const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+    const wsProtocol = backendURL.startsWith("https") ? "wss" : "ws";
     const socket = new window.WebSocket(
-      `ws://localhost:8000/ws/${normUsername}?token=${token}`
+      `${wsProtocol}://${backendURL.replace(/^https?:\/\//, "")}/ws/${normUsername}?token=${token}`
     );
     setWs(socket);
 

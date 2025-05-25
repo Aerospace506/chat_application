@@ -8,10 +8,12 @@ const UserList = ({ onSelectUser, selectedUser }) => {
   const { onlineUsers } = useWebSocket();
   const [users, setUsers] = useState([]);
 
+  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"
+
   // Fetch users initially and whenever onlineUsers changes
   useEffect(() => {
     if (!token) return;
-    authFetch("http://localhost:8000/api/auth/users", token)
+    authFetch(`${backendURL}/api/auth/users`, token)
       .then((res) => (res.ok ? res.json() : []))
       .then((data) => {
         // Exclude the currently logged-in user

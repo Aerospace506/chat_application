@@ -16,7 +16,7 @@ export const GroupProvider = ({ children }) => {
       setGroups([]);
       return;
     }
-    authFetch(`http://localhost:8000/api/groups/me`, token)
+    authFetch(`${import.meta.env.VITE_BACKEND_URL}/api/groups/me`, token)
       .then((res) => (res.ok ? res.json() : []))
       .then((data) => setGroups(Array.isArray(data) ? data : []))
       .catch(() => setGroups([]));

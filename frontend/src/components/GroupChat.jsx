@@ -22,6 +22,7 @@ const GroupChat = ({ selectedGroup }) => {
   });
   const [eventLog, setEventLog] = useState([]);
   const messagesEndRef = useRef(null);
+  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
 
   // All useEffect hooks here
   const scrollToBottom = () => {
@@ -58,7 +59,7 @@ const GroupChat = ({ selectedGroup }) => {
     setMessages([]);
     setGroup(selectedGroup);
     if (selectedGroup && selectedGroup.id) {
-      fetch(`http://localhost:8000/api/groups/${selectedGroup.id}/messages`)
+      fetch(`${backendURL}/api/groups/${selectedGroup.id}/messages`)
         .then((res) => (res.ok ? res.json() : []))
         .then((msgs) => {
           console.log("[FETCHED FROM BACKEND]", msgs);
@@ -218,7 +219,7 @@ const GroupChat = ({ selectedGroup }) => {
     setNewMessage("");
     // Immediately fetch latest messages after sending
     setTimeout(() => {
-      fetch(`http://localhost:8000/api/groups/${selectedGroup.id}/messages`)
+      fetch(`${backendURL}/api/groups/${selectedGroup.id}/messages`)
         .then((res) => (res.ok ? res.json() : []))
         .then((msgs) => {
           console.log("[FETCHED FROM BACKEND]", msgs);
