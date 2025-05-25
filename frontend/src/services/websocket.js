@@ -34,7 +34,9 @@ class WebSocketService {
 
     this.isConnecting = true;
     this.userId = userId;
-    this.ws = new WebSocket(`ws://localhost:8000/api/ws/${userId}`);
+    const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+const wsProtocol = backendURL.startsWith("https") ? "wss" : "ws";
+this.ws = new WebSocket(`${wsProtocol}://${backendURL.replace(/^https?:\/\//, "")}/api/ws/${userId}`);
 
     this.ws.onopen = () => {
       console.log("WebSocket connected");
