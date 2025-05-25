@@ -4,6 +4,8 @@ from typing import List, Union
 from bson import ObjectId
 import logging
 from app.models.group_pydantic import Group, GroupMessage
+from dotenv import load_dotenv
+
 
 logger = logging.getLogger(__name__)
 
