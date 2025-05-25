@@ -16,10 +16,7 @@ app = FastAPI()
 # Allow frontend to connect
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",  # for local dev
-        "https://chat-application-frontend-83ws.onrender.com"  # for production
-    ],
+    allow_origins=["*"],  # TEMP: allow all origins to confirm it's working
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
