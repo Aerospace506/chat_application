@@ -15,7 +15,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173/",
-    "https://chat-application-frontend-83ws.onrender.com/"
+    "https://chat-application-frontend-83ws.onrender.com"
 ]
 # Allow frontend to connect
 app.add_middleware(
