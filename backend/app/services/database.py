@@ -8,8 +8,10 @@ from app.models.group_pydantic import Group, GroupMessage
 logger = logging.getLogger(__name__)
 
 class Database:
-    def __init__(self, url: str = "mongodb://localhost:27017"):
-        self.client = AsyncIOMotorClient(url)
+    def __init__(self, url: str = None):
+        load_dotenv()
+        mongo_url = url or os.getenv("MONGO_URI", "mongodb://localhost:27017")
+        self.client = AsyncIOMotorClient(mongo_url)
         self.db = self.client.chat_app
 
     async def save_message(self, message: Message) -> MessageInDB:
